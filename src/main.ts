@@ -6,8 +6,9 @@ import { bootstrapApplication } from '@angular/platform-browser';
   standalone: true,
   template: `
     <h1>Hello from {{ name }}!</h1>
-    <button (click)="generate('eyes')">Eyes</button>
-    <button (click)="generate('mouth')">Mouth</button>
+    <button (click)="pattern1()">Pattern 1</button>
+    <button (click)="pattern2()">Pattern 2</button>
+    <button (click)="clear()">Clear</button>
     <canvas #canvas class="d-none"></canvas>
     <img  crossorigin="anonymous" [src]="selectedImg" />
   `,
@@ -29,16 +30,18 @@ export class App {
 
     let img1 = new Image();
     img1.crossOrigin = 'anonymous';
-    img1.src = '../socks.png';
+    img1.src = 'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/socks.png';
+
 
     img1.onload = () => {
       canvas.width = img1.width;
       canvas.height = img1.height;
       console.log(this.selectedImg, 'image ss');
       if (context) {
-        // context.globalAlpha = 1.0;
+        context.globalAlpha = 1.0;
         context.drawImage(img1, 0, 0);
-
+        context.globalCompositeOperation = "source-atop";
+        
         console.log('url', canvas.toDataURL('image/png'));
         const imgUrl = canvas.toDataURL('image/png');
         this.selectedImg = imgUrl;
@@ -46,33 +49,70 @@ export class App {
     };
   }
 
-  generate(position: any) {
+  pattern1() {
     console.log('hello');
     let canvas: HTMLCanvasElement = this.canvas.nativeElement;
     let context = canvas.getContext('2d');
+    // if(context){
+    // context.beginPath
+    // context.moveTo(0,0);
+    // context.lineTo(180,100);
+    // context.lineTo(20,100);
+    // context.lineTo(100,20);
+    // context.stroke();
+    // context.fill();
+    // }
+   
     let img = new Image();
-    if (position == 'eyes') {
-      img.src =
-        'https://raw.githubusercontent.com/lukechilds/merge-images/HEAD/test/fixtures/eyes.png';
-      img.crossOrigin = 'anonymous';
-    }
+    img.src =
+      'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern.png';
+    img.crossOrigin = 'anonymous';
 
-    if (position == 'mouth') {
-      img.src =
-        'https://raw.githubusercontent.com/lukechilds/merge-images/HEAD/test/fixtures/mouth.png';
-      img.crossOrigin = 'anonymous';
-    }
-
+    //https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern2.png
+  
     img.onload = () => {
       if (context) {
-        context.globalAlpha = 1.0;
-        context.drawImage(img, 0, 0);
+        
+        // context.globalAlpha = 0.9;
+        context.drawImage(img, 0, 0, 400, 420);
 
         // console.log('url', canvas.toDataURL('image/jpeg'));
         const imgUrl = canvas.toDataURL('image/png');
         this.selectedImg = imgUrl;
       }
     };
+  }
+
+  pattern2() {
+    console.log('hello');
+    let canvas: HTMLCanvasElement = this.canvas.nativeElement;
+    let context = canvas.getContext('2d');
+   
+    let img = new Image();
+    img.src =
+      'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern2.png';
+    img.crossOrigin = 'anonymous';
+
+  
+    img.onload = () => {
+      if (context) {
+        
+        // context.globalAlpha = 1.0;
+        context.drawImage(img, 400, 0, 400, 420);
+
+        // console.log('url', canvas.toDataURL('image/jpeg'));
+        const imgUrl = canvas.toDataURL('image/png');
+        this.selectedImg = imgUrl;
+      }
+    };
+  }
+
+  clear(){
+    let canvas: HTMLCanvasElement = this.canvas.nativeElement;
+    let context = canvas.getContext('2d');
+    if(context){
+      context.clearRect(15, 118, 50, 180)
+    }
   }
 }
 
