@@ -68,6 +68,7 @@ export class App {
       'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern.png';
     img.crossOrigin = 'anonymous';
 
+    
     //https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern2.png
   
     img.onload = () => {
