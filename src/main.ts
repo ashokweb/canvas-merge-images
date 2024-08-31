@@ -30,7 +30,7 @@ export class App {
 
     let img1 = new Image();
     img1.crossOrigin = 'anonymous';
-    img1.src = 'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/socks.png';
+    img1.src = 'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/socks2.png';
 
 
     img1.onload = () => {
@@ -38,9 +38,10 @@ export class App {
       canvas.height = img1.height;
       console.log(this.selectedImg, 'image ss');
       if (context) {
+        
         context.globalAlpha = 1.0;
         context.drawImage(img1, 0, 0);
-        context.globalCompositeOperation = "source-atop";
+        // context.globalCompositeOperation = "source-atop";
         
         console.log('url', canvas.toDataURL('image/png'));
         const imgUrl = canvas.toDataURL('image/png');
@@ -54,13 +55,11 @@ export class App {
     let canvas: HTMLCanvasElement = this.canvas.nativeElement;
     let context = canvas.getContext('2d');
     // if(context){
-    // context.beginPath
-    // context.moveTo(0,0);
-    // context.lineTo(180,100);
-    // context.lineTo(20,100);
-    // context.lineTo(100,20);
-    // context.stroke();
-    // context.fill();
+    //   context.beginPath();
+    //   context.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+    //   // context.moveTo(110, 75);
+    //   // context.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
+    //   context.stroke();
     // }
    
     let img = new Image();
@@ -73,16 +72,31 @@ export class App {
   
     img.onload = () => {
       if (context) {
-        
+        this.drawClipped(context, img);
         // context.globalAlpha = 0.9;
-        context.drawImage(img, 0, 0, 400, 420);
+        // context.drawImage(img, 0, 0, 420, 400);
 
         // console.log('url', canvas.toDataURL('image/jpeg'));
         const imgUrl = canvas.toDataURL('image/png');
         this.selectedImg = imgUrl;
+
+        
       }
     };
   }
+
+  drawClipped(context: any, myImage: any) {
+    context.save();
+    context.beginPath();
+    context.moveTo(188, 150);
+    context.quadraticCurveTo(288, 0, 388, 150);
+    context.lineWidth = 10;
+    context.quadraticCurveTo(288, 288, 188, 150);
+    context.lineWidth = 10;
+    context.clip();
+    context.drawImage(myImage, 10, 50);
+    context.restore();
+ }
 
   pattern2() {
     console.log('hello');
@@ -99,7 +113,7 @@ export class App {
       if (context) {
         
         // context.globalAlpha = 1.0;
-        context.drawImage(img, 400, 0, 400, 420);
+        context.drawImage(img, 0, 400, 420, 400);
 
         // console.log('url', canvas.toDataURL('image/jpeg'));
         const imgUrl = canvas.toDataURL('image/png');
