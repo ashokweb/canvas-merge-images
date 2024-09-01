@@ -41,7 +41,7 @@ export class App {
         
         context.globalAlpha = 1.0;
         context.drawImage(img1, 0, 0);
-        // context.globalCompositeOperation = "source-atop";
+        context.globalCompositeOperation = "source-atop";
         
         console.log('url', canvas.toDataURL('image/png'));
         const imgUrl = canvas.toDataURL('image/png');
@@ -88,7 +88,7 @@ export class App {
   drawClipped(context: any, myImage: any) {
     context.save();
     context.beginPath();
-    context.moveTo(188, 150);
+    context.moveTo(0, 0);
     context.quadraticCurveTo(288, 0, 388, 150);
     context.lineWidth = 10;
     context.quadraticCurveTo(288, 288, 188, 150);
