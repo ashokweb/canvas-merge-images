@@ -64,7 +64,7 @@ export class App {
    
     let img = new Image();
     img.src =
-      'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/pattern.png';
+      'https://raw.githubusercontent.com/ashokweb/canvas-merge-images/main/src/assets/swatch.png';
     img.crossOrigin = 'anonymous';
 
     
@@ -86,6 +86,7 @@ export class App {
   }
 
   drawClipped(context: any, myImage: any) {
+    const pat = context.createPattern(myImage, 'repeat');
     context.save();
     context.beginPath();
     context.moveTo(0, 0);
@@ -94,7 +95,9 @@ export class App {
     context.quadraticCurveTo(288, 288, 188, 150);
     context.lineWidth = 10;
     context.clip();
-    context.drawImage(myImage, 10, 50);
+    context.fillStyle = pat;
+    context.fill();
+    // context.drawImage(myImage, 10, 50);
     context.restore();
  }
 
