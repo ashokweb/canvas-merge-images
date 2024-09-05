@@ -72,7 +72,8 @@ export class App {
   
     img.onload = () => {
       if (context) {
-        this.drawClipped(context, img);
+        this.drawClipped(context, 'color', 'rgba(0, 128, 0, 0.5)');
+        this.drawClipped(context, 'img', img);
         // context.globalAlpha = 0.9;
         // context.drawImage(img, 0, 0, 420, 400);
 
@@ -85,8 +86,14 @@ export class App {
     };
   }
 
-  drawClipped(context: any, myImage: any) {
-    const pat = context.createPattern(myImage, 'repeat');
+  drawClipped(context: any, fillType: any, fillVal: any) {
+    let fillArea = '';
+    if(fillType == 'img'){
+      fillArea = context.createPattern(fillVal, 'repeat');
+    }
+    else{
+      fillArea = fillVal;
+    }
     context.save();
     context.beginPath();
     context.moveTo(0, 0);
@@ -95,7 +102,7 @@ export class App {
     context.quadraticCurveTo(288, 288, 188, 150);
     context.lineWidth = 10;
     context.clip();
-    context.fillStyle = pat;
+    context.fillStyle = fillArea;
     context.fill();
     // context.drawImage(myImage, 10, 50);
     context.restore();
